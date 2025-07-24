@@ -7,7 +7,7 @@ use CodeIgniter\Router\RouteCollection;
  */
 
 // Dashboard utama
-$routes->get('/', 'Inventaris::index');
+$routes->get('/', 'Register::index');
 $routes->get('/dashboard', 'Dashboard::index');
 
 // Barang
@@ -36,10 +36,17 @@ $routes->get('/laporan', 'Laporan::index');
 $routes->post('/laporan/verifikasi', 'Laporan::verifikasi');
 
 // Login & Logout - gunakan controller Auth
-$routes->get('/login', 'Auth::login'); // menampilkan form login
-$routes->post('/login', 'Auth::prosesLogin'); // proses login
+$routes->get('/login', 'Auth::login'); // 
+$routes->post('/login', 'Auth::prosesLogin');
 $routes->get('/logout', 'Auth::logout');
 $routes->post('/proses-login', 'Auth::prosesLogin');
+
+$routes->get('/register', 'Register::index');
+$routes->post('/register/proses', 'Register::proses');
+
+//Password
+$routes->get('/ubah-password', 'Auth::ubahPassword');
+$routes->post('/proses-ubah-password', 'Auth::prosesUbahPassword');
 
 // Log Aktivitas 
 $routes->get('/log', 'Log::index');

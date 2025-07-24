@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Models\UserModel;
+
 class Login extends BaseController
 {
     public function index()
@@ -14,18 +16,22 @@ class Login extends BaseController
         $username = $this->request->getPost('username');
         $password = $this->request->getPost('password');
 
-        // Simulasi user dari DB)
-        $userAdmin = ['username' => 'admin', 'password' => 'admin123', 'role' => 'admin'];
-        $userManajer = ['username' => 'manajer', 'password' => 'manajer123', 'role' => 'manajer'];
+        $userModel = new UserModel();
+        $user = $userModel->where('username', $username)->first();
 
-        if ($username === $userAdmin['username'] && $password === $userAdmin['password']) {
-            session()->set(['username' => $username, 'role' => 'admin', 'logged_in' => true]);
-            return redirect()->to('/dashboard');
-        } elseif ($username === $userManajer['username'] && $password === $userManajer['password']) {
-            session()->set(['username' => $username, 'role' => 'manajer', 'logged_in' => true]);
-            return redirect()->to('/dashboard');
+        if ($user) {
+            if (password_verify($password, $user['password'])) {
+                session()->set([
+                    'username' => $user['username'],
+                    'role'     => $user['role'],
+                    'logged_in' => true
+                ]);
+                return redirect()->to('/dashboard');
+            } else {
+                return redirect()->to('/login')->with('error', 'Password salah!');
+            }
         } else {
-            return redirect()->to('/login')->with('error', 'Username atau Password salah!');
+            return redirect()->to('/login')->with('error', 'Username tidak ditemukan!');
         }
     }
 

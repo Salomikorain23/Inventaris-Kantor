@@ -1,4 +1,10 @@
 <?= $this->include('templates/header'); ?>
+<div class="text-center mb-4">
+    <h1 class="h3 text-gray-800 font-weight-bold">Data Pengembalian Barang</h1>
+    <p class="text-muted">Halaman untuk mencatat dan melihat data pengembalian barang dari peminjam.</p>
+</div>
+
+<a href="<?= base_url('dashboard') ?>" class="btn btn-secondary mb-3">← Kembali</a>
 
 <h2 class="h4 mb-4">Data Pengembalian Barang</h2>
 

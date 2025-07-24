@@ -8,10 +8,8 @@ class Auth extends BaseController
 {
     public function login()
     {
-        // login ke dashboard
-        if (session()->get('logged_in')) {
-            return redirect()->to('/dashboard');
-        }
+        // Reset session apapun dari sebelumnya
+        session()->remove(['username', 'role', 'logged_in']);
 
         return view('auth/login');
     }
@@ -22,10 +20,8 @@ class Auth extends BaseController
         $username = $this->request->getPost('username');
         $password = $this->request->getPost('password');
 
-        // Cari user berdasarkan username
         $user = $userModel->where('username', $username)->first();
 
-        // Verifikasi password menggunakan password_verify
         if ($user && password_verify($password, $user['password'])) {
             session()->set([
                 'username'  => $user['username'],
@@ -33,9 +29,7 @@ class Auth extends BaseController
                 'logged_in' => true
             ]);
 
-            // Catat log aktivitas login
             $this->logAktivitas('Login berhasil');
-
             return redirect()->to('/dashboard');
         } else {
             return redirect()->to('/login')->with('error', 'Username atau password salah.');
@@ -44,10 +38,32 @@ class Auth extends BaseController
 
     public function logout()
     {
-        // Catatan log aktivitas logout sebelum session
         $this->logAktivitas('Logout');
-
         session()->destroy();
-        return redirect()->to('/login');
+        return redirect()->to('/register')->with('success', 'Anda telah logout. Silakan register ulang atau login kembali.');
+    }
+
+    public function ubahPassword()
+    {
+        return view('templates/ubah_password');
+    }
+
+    public function prosesUbahPassword()
+    {
+        $username = $this->request->getPost('username');
+        $newPassword = $this->request->getPost('new_password');
+
+        $userModel = new UserModel();
+        $user = $userModel->where('username', $username)->first();
+
+        if (!$user) {
+            return redirect()->to('/ubah-password')->with('error', 'Username tidak ditemukan.');
+        }
+
+        $userModel->update($user['id'], [
+            'password' => password_hash($newPassword, PASSWORD_DEFAULT)
+        ]);
+
+        return redirect()->to('/login')->with('success', 'Password berhasil diperbarui. Silakan login.');
     }
 }

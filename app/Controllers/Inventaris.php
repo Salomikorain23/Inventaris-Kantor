@@ -14,6 +14,10 @@ class Inventaris extends BaseController
             return redirect()->to('/login');
         }
 
+        if (session()->get('role') !== 'admin') {
+            return redirect()->to('/dashboard')->with('error', 'Akses hanya untuk admin.');
+        }
+
         return redirect()->to('/dashboard');
     }
 
@@ -21,6 +25,10 @@ class Inventaris extends BaseController
     {
         if (!session()->get('logged_in')) {
             return redirect()->to('/login');
+        }
+
+        if (session()->get('role') !== 'admin') {
+            return redirect()->to('/dashboard')->with('error', 'Akses hanya untuk admin.');
         }
 
         $model = new BarangModel();
@@ -34,10 +42,81 @@ class Inventaris extends BaseController
             return redirect()->to('/login');
         }
 
+        if (session()->get('role') !== 'admin') {
+            return redirect()->to('/dashboard')->with('error', 'Akses hanya untuk admin.');
+        }
+
         $model = new PeminjamanModel();
         $data['peminjaman'] = $model->findAll();
         return view('templates/peminjaman', $data);
     }
+    public function tambahPeminjaman()
+    {
+        if (!session()->get('logged_in')) {
+            return redirect()->to('/login');
+        }
+
+        if (session()->get('role') !== 'admin') {
+            return redirect()->to('/dashboard')->with('error', 'Akses hanya untuk admin.');
+        }
+
+        $model = new PeminjamanModel();
+        $data = [
+            'nama_peminjam'     => $this->request->getPost('nama_peminjam'),
+            'nama_barang'       => $this->request->getPost('nama_barang'),
+            'tanggal_pinjam'    => $this->request->getPost('tanggal_pinjam'),
+            'tanggal_kembali'   => $this->request->getPost('tanggal_kembali'),
+            'status'            => $this->request->getPost('status')
+        ];
+        $model->save($data);
+
+        return redirect()->to('/peminjaman')->with('success', 'Data peminjaman berhasil disimpan.');
+    }
+
+    public function editPeminjaman($id)
+    {
+        if (!session()->get('logged_in')) {
+            return redirect()->to('/login');
+        }
+
+        if (session()->get('role') !== 'admin') {
+            return redirect()->to('/dashboard')->with('error', 'Akses hanya untuk admin.');
+        }
+
+        $model = new \App\Models\PeminjamanModel();
+        $data['peminjaman'] = $model->find($id);
+
+        if (!$data['peminjaman']) {
+            return redirect()->to('/peminjaman')->with('error', 'Data tidak ditemukan.');
+        }
+
+        return view('templates/edit_peminjaman', $data);
+    }
+
+    public function updatePeminjaman($id)
+    {
+        if (!session()->get('logged_in')) {
+            return redirect()->to('/login');
+        }
+
+        if (session()->get('role') !== 'admin') {
+            return redirect()->to('/dashboard')->with('error', 'Akses hanya untuk admin.');
+        }
+
+        $model = new \App\Models\PeminjamanModel();
+        $data = [
+            'id'               => $id,
+            'nama_peminjam'    => $this->request->getPost('nama_peminjam'),
+            'nama_barang'      => $this->request->getPost('nama_barang'),
+            'tanggal_pinjam'   => $this->request->getPost('tanggal_pinjam'),
+            'tanggal_kembali'  => $this->request->getPost('tanggal_kembali'),
+            'status'           => $this->request->getPost('status')
+        ];
+
+        $model->save($data);
+        return redirect()->to('/peminjaman')->with('success', 'Data peminjaman berhasil diperbarui.');
+    }
+
 
     public function pengembalian()
     {
@@ -45,40 +124,113 @@ class Inventaris extends BaseController
             return redirect()->to('/login');
         }
 
+        if (session()->get('role') !== 'admin') {
+            return redirect()->to('/dashboard')->with('error', 'Akses hanya untuk admin.');
+        }
+
         $model = new PengembalianModel();
         $data['pengembalian'] = $model->findAll();
         return view('templates/pengembalian', $data);
     }
 
-    public function laporan()
+    public function tambahPengembalian()
     {
         if (!session()->get('logged_in')) {
             return redirect()->to('/login');
         }
 
-        return view('templates/laporan');
-    }
+        if (session()->get('role') !== 'admin') {
+            return redirect()->to('/dashboard')->with('error', 'Akses hanya untuk admin.');
+        }
 
-    // ---------- CRUD BARANG ----------
-    public function tambahBarang()
-    {
-        $model = new BarangModel();
+        $model = new PengembalianModel();
         $data = [
-            'nama_barang' => $this->request->getPost('nama_barang'),
-            'jumlah'      => $this->request->getPost('jumlah'),
-            'kategori'    => $this->request->getPost('kategori')
+            'nama_peminjam'     => $this->request->getPost('nama_peminjam'),
+            'nama_barang'       => $this->request->getPost('nama_barang'),
+            'tanggal_pinjam'    => $this->request->getPost('tanggal_pinjam'),
+            'tanggal_kembali'   => $this->request->getPost('tanggal_kembali'),
+            'kondisi_barang'    => $this->request->getPost('kondisi_barang')
         ];
         $model->save($data);
 
-        //log aktivitas untuk tambah barang
-        $this->logAktivitas("Menambahkan barang baru: " . $data['nama_barang']);
+        return redirect()->to('/pengembalian')->with('success', 'Data pengembalian berhasil disimpan.');
+    }
 
-        return redirect()->to('/barang')->with('success', 'Barang berhasil ditambahkan.');
+    public function editPengembalian($id)
+    {
+        if (!session()->get('logged_in')) {
+            return redirect()->to('/login');
+        }
+
+        if (session()->get('role') !== 'admin') {
+            return redirect()->to('/dashboard')->with('error', 'Akses hanya untuk admin.');
+        }
+
+        $model = new \App\Models\PengembalianModel();
+        $data['pengembalian'] = $model->find($id);
+
+        if (!$data['pengembalian']) {
+            return redirect()->to('/pengembalian')->with('error', 'Data tidak ditemukan.');
+        }
+
+        return view('templates/edit_pengembalian', $data);
+    }
+    public function updatePengembalian($id)
+    {
+        if (!session()->get('logged_in')) {
+            return redirect()->to('/login');
+        }
+
+        if (session()->get('role') !== 'admin') {
+            return redirect()->to('/dashboard')->with('error', 'Akses hanya untuk admin.');
+        }
+
+        $model = new \App\Models\PengembalianModel();
+        $data = [
+            'id'                => $id,
+            'nama_peminjam'     => $this->request->getPost('nama_peminjam'),
+            'nama_barang'       => $this->request->getPost('nama_barang'),
+            'tanggal_pinjam'    => $this->request->getPost('tanggal_pinjam'),
+            'tanggal_kembali'   => $this->request->getPost('tanggal_kembali'),
+            'kondisi_barang'    => $this->request->getPost('kondisi_barang')
+        ];
+
+        $model->save($data);
+        return redirect()->to('/pengembalian')->with('success', 'Data pengembalian berhasil diperbarui.');
     }
 
 
+    public function tambahBarang()
+    {
+        if (!session()->get('logged_in')) {
+            return redirect()->to('/login');
+        }
+
+        if (session()->get('role') !== 'admin') {
+            return redirect()->to('/dashboard')->with('error', 'Akses hanya untuk admin.');
+        }
+
+        $model = new BarangModel();
+        $data = [
+            'nama_barang' => $this->request->getPost('nama_barang'),
+            'kategori' => $this->request->getPost('kategori'),
+            'jumlah' => $this->request->getPost('jumlah'),
+            'kondisi' => $this->request->getPost('kondisi')
+        ];
+        $model->save($data);
+        return redirect()->to('/barang');
+    }
+
     public function editBarang($id)
     {
+        if (!session()->get('logged_in')) {
+            return redirect()->to('/login');
+        }
+
+        if (session()->get('role') !== 'admin') {
+            return redirect()->to('/dashboard')->with('error', 'Akses hanya untuk admin.');
+        }
+
         $model = new BarangModel();
         $data['barang'] = $model->find($id);
         return view('templates/edit_barang', $data);
@@ -86,117 +238,39 @@ class Inventaris extends BaseController
 
     public function updateBarang($id)
     {
+        if (!session()->get('logged_in')) {
+            return redirect()->to('/login');
+        }
+
+        if (session()->get('role') !== 'admin') {
+            return redirect()->to('/dashboard')->with('error', 'Akses hanya untuk admin.');
+        }
+
         $model = new BarangModel();
         $data = [
+            'id' => $id,
             'nama_barang' => $this->request->getPost('nama_barang'),
-            'kategori'    => $this->request->getPost('kategori'),
-            'jumlah'      => $this->request->getPost('jumlah'),
-            'kondisi'     => $this->request->getPost('kondisi'),
+            'kategori' => $this->request->getPost('kategori'),
+            'jumlah' => $this->request->getPost('jumlah'),
+            'kondisi' => $this->request->getPost('kondisi')
         ];
-        $model->update($id, $data);
-        // log aktivitas
-        $this->logAktivitas("Mengedit barang ID: $id");
+        $model->save($data);
         return redirect()->to('/barang');
     }
 
     public function hapusBarang($id)
     {
-        $model = new BarangModel();
+        if (!session()->get('logged_in')) {
+            return redirect()->to('/login');
+        }
+
+        if (session()->get('role') !== 'admin') {
+            return redirect()->to('/dashboard')->with('error', 'Akses hanya untuk admin.');
+        }
+
+        $model = new \App\Models\BarangModel();
         $model->delete($id);
-        return redirect()->to('/barang');
-    }
 
-    // ---------- CRUD PEMINJAMAN ----------
-    public function tambahPeminjaman()
-    {
-        $model = new PeminjamanModel();
-        $data = [
-            'nama_peminjam'    => $this->request->getPost('nama_peminjam'),
-            'nama_barang'      => $this->request->getPost('nama_barang'),
-            'tanggal_pinjam'   => $this->request->getPost('tanggal_pinjam'),
-            'tanggal_kembali'  => $this->request->getPost('tanggal_kembali'),
-            'status'           => $this->request->getPost('status'),
-        ];
-        $model->insert($data);
-        return redirect()->to('/peminjaman');
-    }
-
-    public function editPeminjaman($id)
-    {
-        $model = new PeminjamanModel();
-        $data['peminjaman'] = $model->find($id);
-        return view('templates/edit_peminjaman', $data);
-    }
-
-    public function updatePeminjaman($id)
-    {
-        $model = new PeminjamanModel();
-        $data = [
-            'nama_peminjam'    => $this->request->getPost('nama_peminjam'),
-            'nama_barang'      => $this->request->getPost('nama_barang'),
-            'tanggal_pinjam'   => $this->request->getPost('tanggal_pinjam'),
-            'tanggal_kembali'  => $this->request->getPost('tanggal_kembali'),
-            'status'           => $this->request->getPost('status'),
-        ];
-
-        $model->update($id, $data);
-
-        // log setelah update berhasil
-        $this->logAktivitas("Mengedit peminjaman ID: $id");
-
-        return redirect()->to('/peminjaman');
-    }
-
-
-    public function hapusPeminjaman($id)
-    {
-        $model = new PeminjamanModel();
-        $model->delete($id);
-        return redirect()->to('/peminjaman');
-    }
-
-    // ---------- CRUD PENGEMBALIAN ----------
-    public function tambahPengembalian()
-    {
-        $model = new PengembalianModel();
-        $data = [
-            'nama_peminjam'    => $this->request->getPost('nama_peminjam'),
-            'nama_barang'      => $this->request->getPost('nama_barang'),
-            'tanggal_pinjam'   => $this->request->getPost('tanggal_pinjam'),
-            'tanggal_kembali'  => $this->request->getPost('tanggal_kembali'),
-            'kondisi_barang'   => $this->request->getPost('kondisi_barang'),
-        ];
-        $model->insert($data);
-        return redirect()->to('/pengembalian');
-    }
-
-    public function editPengembalian($id)
-    {
-        $model = new PengembalianModel();
-        $data['pengembalian'] = $model->find($id);
-        return view('templates/edit_pengembalian', $data);
-    }
-
-    public function updatePengembalian($id)
-    {
-        $model = new PengembalianModel();
-        $data = [
-            'nama_peminjam'    => $this->request->getPost('nama_peminjam'),
-            'nama_barang'      => $this->request->getPost('nama_barang'),
-            'tanggal_pinjam'   => $this->request->getPost('tanggal_pinjam'),
-            'tanggal_kembali'  => $this->request->getPost('tanggal_kembali'),
-            'kondisi_barang'   => $this->request->getPost('kondisi_barang'),
-        ];
-        $model->update($id, $data);
-        // Log aktivitas
-        $this->logAktivitas("Mengedit pengembalian ID: $id");
-        return redirect()->to('/pengembalian');
-    }
-
-    public function hapusPengembalian($id)
-    {
-        $model = new PengembalianModel();
-        $model->delete($id);
-        return redirect()->to('/pengembalian');
+        return redirect()->to('/barang')->with('success', 'Barang berhasil dihapus.');
     }
 }

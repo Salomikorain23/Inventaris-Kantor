@@ -5,6 +5,7 @@
 <div class="container-fluid">
     <h1 class="h3 mb-4 text-gray-800">Dashboard Inventaris Barang</h1>
 
+
     <div class="row">
         <!-- Total Barang -->
         <div class="col-xl-3 col-md-6 mb-4">

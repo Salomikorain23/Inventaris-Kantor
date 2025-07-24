@@ -3,14 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Login - Inventaris Kantor</title>
-    <style>
-        .fas.fa-eye::before {
-            content: "\f06e";
-            font-family: "Font Awesome 6 Free";
-            font-weight: 900;
-        }
-    </style>
+    <title>Ubah Password</title>
+    <link rel="stylesheet" href="<?= base_url('vendor/fontawesome-free/css/all.min.css') ?>">
     <link href="<?= base_url('css/sb-admin-2.min.css') ?>" rel="stylesheet">
 </head>
 
@@ -18,27 +12,27 @@
 
     <div class="container">
         <div class="row justify-content-center mt-5">
-            <div class="col-lg-5">
-                <div class="card shadow-lg border-0">
+            <div class="col-lg-6">
+                <div class="card shadow border-0">
                     <div class="card-body">
-                        <h4 class="text-center mb-4">Login Sistem Inventaris</h4>
-
-                        <?php if (session()->getFlashdata('error')): ?>
-                            <div class="alert alert-danger"><?= session()->getFlashdata('error') ?></div>
-                        <?php endif; ?>
+                        <h4 class="text-center mb-4">Ubah Password</h4>
 
                         <?php if (session()->getFlashdata('success')): ?>
                             <div class="alert alert-success"><?= session()->getFlashdata('success') ?></div>
                         <?php endif; ?>
 
-                        <form action="<?= base_url('login') ?>" method="post">
+                        <?php if (session()->getFlashdata('error')): ?>
+                            <div class="alert alert-danger"><?= session()->getFlashdata('error') ?></div>
+                        <?php endif; ?>
+
+                        <form action="<?= base_url('proses-ubah-password') ?>" method="post">
                             <div class="form-group">
-                                <input type="text" name="username" class="form-control" placeholder="Username" value="<?= old('username') ?>" required>
+                                <input type="text" name="username" class="form-control" placeholder="Masukkan username yang terdaftar" required>
                             </div>
 
                             <div class="form-group">
                                 <div class="input-group">
-                                    <input type="password" name="password" id="passwordInput" class="form-control" placeholder="Password" required>
+                                    <input type="password" name="new_password" id="newPasswordInput" class="form-control" placeholder="Password baru" required>
                                     <div class="input-group-append">
                                         <span class="input-group-text" onclick="togglePassword()" style="cursor: pointer;">
                                             <i class="fas fa-eye" id="eyeIcon"></i>
@@ -47,10 +41,10 @@
                                 </div>
                             </div>
 
-                            <button type="submit" class="btn btn-primary btn-block">Login</button>
+                            <button type="submit" class="btn btn-warning btn-block">Perbarui Password</button>
 
                             <div class="text-center mt-3">
-                                <a href="<?= base_url('register') ?>">Belum punya akun? Register</a>
+                                <a href="<?= base_url('login') ?>">Kembali ke Login</a>
                             </div>
                         </form>
                     </div>
@@ -62,7 +56,7 @@
     <!-- Toggle Password Script -->
     <script>
         function togglePassword() {
-            const input = document.getElementById('passwordInput');
+            const input = document.getElementById('newPasswordInput');
             const icon = document.getElementById('eyeIcon');
             if (input.type === "password") {
                 input.type = "text";

@@ -1,6 +1,20 @@
 <?= $this->include('templates/header'); ?>
-<h1 class="h3 mb-4 text-gray-800">Data Barang Inventaris</h1>
-<p>Halaman untuk menampilkan daftar barang yang tercatat di inventaris kantor.</p>
+
+<div class="text-center mb-4">
+    <h1 class="h3 text-gray-800 font-weight-bold">Data Barang Inventaris</h1>
+    <p class="text-muted">Halaman untuk menampilkan daftar barang yang tercatat di inventaris kantor.</p>
+</div>
+
+<a href="<?= base_url('dashboard') ?>" class="btn btn-secondary mb-3">← Kembali</a>
+
+<!-- Notifikasi flash message -->
+<?php if (session()->getFlashdata('success')): ?>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <?= session()->getFlashdata('success') ?>
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+    </div>
+<?php endif; ?>
+
 <h2 class="h5 mb-3">Tambah Data Barang</h2>
 <form action="<?= base_url('barang/tambah') ?>" method="post">
     <div class="form-group">
@@ -24,8 +38,9 @@
 
 <hr>
 
+<h5 class="mb-3">Daftar Barang</h5>
 <table class="table table-bordered">
-    <thead>
+    <thead class="thead-light">
         <tr>
             <th>No</th>
             <th>Nama Barang</th>
@@ -52,4 +67,5 @@
         <?php endforeach; ?>
     </tbody>
 </table>
+
 <?= $this->include('templates/footer'); ?>

@@ -3,14 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Login - Inventaris Kantor</title>
-    <style>
-        .fas.fa-eye::before {
-            content: "\f06e";
-            font-family: "Font Awesome 6 Free";
-            font-weight: 900;
-        }
-    </style>
+    <title>Register - Inventaris Kantor</title>
+    <link rel="stylesheet" href="<?= base_url('vendor/fontawesome-free/css/all.min.css') ?>">
     <link href="<?= base_url('css/sb-admin-2.min.css') ?>" rel="stylesheet">
 </head>
 
@@ -18,27 +12,23 @@
 
     <div class="container">
         <div class="row justify-content-center mt-5">
-            <div class="col-lg-5">
+            <div class="col-lg-6">
                 <div class="card shadow-lg border-0">
                     <div class="card-body">
-                        <h4 class="text-center mb-4">Login Sistem Inventaris</h4>
-
-                        <?php if (session()->getFlashdata('error')): ?>
-                            <div class="alert alert-danger"><?= session()->getFlashdata('error') ?></div>
-                        <?php endif; ?>
+                        <h4 class="text-center mb-4">Register Akun</h4>
 
                         <?php if (session()->getFlashdata('success')): ?>
                             <div class="alert alert-success"><?= session()->getFlashdata('success') ?></div>
                         <?php endif; ?>
 
-                        <form action="<?= base_url('login') ?>" method="post">
+                        <form action="<?= base_url('register/proses') ?>" method="post">
                             <div class="form-group">
-                                <input type="text" name="username" class="form-control" placeholder="Username" value="<?= old('username') ?>" required>
+                                <input type="text" name="username" class="form-control" placeholder="Username" required>
                             </div>
 
                             <div class="form-group">
                                 <div class="input-group">
-                                    <input type="password" name="password" id="passwordInput" class="form-control" placeholder="Password" required>
+                                    <input type="password" name="password" id="regPassword" class="form-control" placeholder="Password" required>
                                     <div class="input-group-append">
                                         <span class="input-group-text" onclick="togglePassword()" style="cursor: pointer;">
                                             <i class="fas fa-eye" id="eyeIcon"></i>
@@ -47,10 +37,21 @@
                                 </div>
                             </div>
 
-                            <button type="submit" class="btn btn-primary btn-block">Login</button>
+                            <div class="form-group">
+                                <select name="role" class="form-control" required>
+                                    <option value="" disabled selected>Pilih Role</option>
+                                    <option value="admin">Admin</option>
+                                    <option value="manajer">Manajer</option>
+                                </select>
+                            </div>
+
+                            <button type="submit" class="btn btn-success btn-block">Register</button>
 
                             <div class="text-center mt-3">
-                                <a href="<?= base_url('register') ?>">Belum punya akun? Register</a>
+                                <a href="<?= base_url('login') ?>">Sudah punya akun? Login</a>
+                            </div>
+                            <div class="text-center mt-2">
+                                <a href="<?= base_url('ubah-password') ?>">Lupa password?</a>
                             </div>
                         </form>
                     </div>
@@ -62,7 +63,7 @@
     <!-- Toggle Password Script -->
     <script>
         function togglePassword() {
-            const input = document.getElementById('passwordInput');
+            const input = document.getElementById('regPassword');
             const icon = document.getElementById('eyeIcon');
             if (input.type === "password") {
                 input.type = "text";
