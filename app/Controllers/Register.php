@@ -8,7 +8,7 @@ class Register extends BaseController
 {
     public function index()
     {
-        return view('templates/register');
+        return view('auth/register');
     }
 
     public function proses()

@@ -50,3 +50,8 @@ $routes->post('/proses-ubah-password', 'Auth::prosesUbahPassword');
 
 // Log Aktivitas 
 $routes->get('/log', 'Log::index');
+
+// Profil
+$routes->get('profil', 'Profil::index');
+$routes->get('profil/edit', 'Profil::edit');
+$routes->post('profil/update', 'Profil::update');

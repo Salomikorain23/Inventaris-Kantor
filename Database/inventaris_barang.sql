@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 24 Jul 2025 pada 03.59
+-- Waktu pembuatan: 25 Jul 2025 pada 11.24
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -147,7 +147,37 @@ INSERT INTO `log_aktivitas` (`id`, `username`, `role`, `aktivitas`, `waktu`) VAL
 (58, 'manajer', 'manajer', 'Login berhasil', '2025-07-24 02:25:52'),
 (59, 'manajer', 'manajer', 'Logout', '2025-07-24 02:26:07'),
 (60, 'admin', 'admin', 'Login berhasil', '2025-07-24 02:28:31'),
-(61, 'admin', 'admin', 'Logout', '2025-07-24 02:28:37');
+(61, 'admin', 'admin', 'Logout', '2025-07-24 02:28:37'),
+(62, 'Salomi Korain', 'admin', 'Login berhasil', '2025-07-24 10:09:37'),
+(63, 'Salomi Korain', 'admin', 'Login berhasil', '2025-07-24 10:09:37'),
+(64, 'Salomi Korain', 'admin', 'Logout', '2025-07-24 10:34:45'),
+(65, 'Salomi Korain', 'admin', 'Login berhasil', '2025-07-24 10:35:31'),
+(66, 'Salomi Korain', 'admin', 'Login berhasil', '2025-07-24 12:11:34'),
+(67, 'Salomi Korain', 'admin', 'Login berhasil', '2025-07-24 12:22:46'),
+(68, 'Salomi Korain', 'admin', 'Login berhasil', '2025-07-24 12:29:16'),
+(69, 'Salomi Korain', 'admin', 'Login berhasil', '2025-07-24 12:40:59'),
+(70, 'Salomi Korain', 'admin', 'Login berhasil', '2025-07-24 12:47:57'),
+(71, 'Salomi Korain', 'admin', 'Login berhasil', '2025-07-24 12:47:57'),
+(72, 'Salomi Korain', 'admin', 'Login berhasil', '2025-07-24 13:02:37'),
+(73, 'Salomi Korain', 'admin', 'Login berhasil', '2025-07-24 13:10:53'),
+(74, 'Salomi Korain', 'admin', 'Logout', '2025-07-24 13:32:58'),
+(75, 'Salomi Korain', 'admin', 'Login berhasil', '2025-07-24 15:18:17'),
+(76, 'Salomi Korain', 'admin', 'Login berhasil', '2025-07-25 12:52:56'),
+(77, 'Salomi Korain', 'admin', 'Login berhasil', '2025-07-25 12:54:36'),
+(78, 'Salomi Korain', 'admin', 'Logout', '2025-07-25 12:56:02'),
+(79, 'Anita Korain', 'manajer', 'Login berhasil', '2025-07-25 12:57:43'),
+(80, 'Anita Korain', 'manajer', 'Logout', '2025-07-25 12:59:54'),
+(81, 'Salomi Korain', 'admin', 'Login berhasil', '2025-07-25 13:08:03'),
+(82, 'Salomi Korain', 'admin', 'Login berhasil', '2025-07-25 14:44:13'),
+(83, 'Salomi Korain', 'admin', 'Login berhasil', '2025-07-25 14:55:38'),
+(84, 'Salomi Korain', 'admin', 'Login berhasil', '2025-07-25 14:57:45'),
+(85, 'Salomi Korain', 'admin', 'Login berhasil', '2025-07-25 15:00:17'),
+(86, 'Salomi Korain', 'admin', 'Login berhasil', '2025-07-25 15:16:06'),
+(87, 'Salomi Korain', 'admin', 'Login berhasil', '2025-07-25 15:28:16'),
+(88, 'Salomi Korain', 'admin', 'Login berhasil', '2025-07-25 15:34:37'),
+(89, 'Anita Korain', 'manajer', 'Login berhasil', '2025-07-25 16:07:18'),
+(90, 'Anita Korain', 'manajer', 'Login berhasil', '2025-07-25 16:17:45'),
+(91, 'Anita Korain', 'manajer', 'Logout', '2025-07-25 16:18:09');
 
 -- --------------------------------------------------------
 
@@ -203,6 +233,8 @@ INSERT INTO `pengembalian` (`id`, `nama_peminjam`, `nama_barang`, `tanggal_pinja
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `username` varchar(100) NOT NULL,
+  `nama` varchar(100) DEFAULT NULL,
+  `foto` varchar(255) DEFAULT 'user.png',
   `password` varchar(255) NOT NULL,
   `role` varchar(50) NOT NULL,
   `created_at` datetime DEFAULT current_timestamp(),
@@ -213,9 +245,11 @@ CREATE TABLE `users` (
 -- Dumping data untuk tabel `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `password`, `role`, `created_at`, `updated_at`) VALUES
-(4, 'admin', '$2y$10$7Ypp3DxJ2Z7HSeNS/PLMFuJBc/XF3Ipp4yRmOtcu.oV3hjJquovkC', 'admin', '2025-07-23 17:44:24', '2025-07-23 17:44:24'),
-(7, 'manajer', '$2y$10$4NC/MR3ArzZY4BZa1OFeEeU34svkFZceBRAPQRIQMJKp4AcC3YOZS', 'manajer', '2025-07-23 18:04:44', '2025-07-23 18:04:44');
+INSERT INTO `users` (`id`, `username`, `nama`, `foto`, `password`, `role`, `created_at`, `updated_at`) VALUES
+(4, 'admin', NULL, 'user.png', '$2y$10$7Ypp3DxJ2Z7HSeNS/PLMFuJBc/XF3Ipp4yRmOtcu.oV3hjJquovkC', 'admin', '2025-07-23 17:44:24', '2025-07-23 17:44:24'),
+(7, 'manajer', NULL, 'user.png', '$2y$10$4NC/MR3ArzZY4BZa1OFeEeU34svkFZceBRAPQRIQMJKp4AcC3YOZS', 'manajer', '2025-07-23 18:04:44', '2025-07-23 18:04:44'),
+(37, 'Salomi Korain', 'Omhy Korain', '1753338113_9992f87176b5d33f24c9.jpg', '$2y$10$BUDWv9APV17sOQ4CpC0Da.tcW3b38SZYcpo9X2x4UVKZVEX4/I77.', 'admin', '2025-07-24 03:08:47', '2025-07-25 05:54:18'),
+(38, 'Anita Korain', 'Onha', '1753423158_ba70b757824d60f251d0.jpg', '$2y$10$3vhha.FqRRFqorGz20ge8.geyWOHGCzkjv8c.lpsA4.Qj6621W8KC', 'manajer', '2025-07-25 05:57:28', '2025-07-25 05:59:18');
 
 --
 -- Indexes for dumped tables
@@ -277,7 +311,7 @@ ALTER TABLE `laporan`
 -- AUTO_INCREMENT untuk tabel `log_aktivitas`
 --
 ALTER TABLE `log_aktivitas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
 
 --
 -- AUTO_INCREMENT untuk tabel `peminjaman`
@@ -295,7 +329,7 @@ ALTER TABLE `pengembalian`
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

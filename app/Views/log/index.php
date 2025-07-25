@@ -1,4 +1,4 @@
-<?= $this->extend('templates/layout') ?>
+<?= $this->extend('layouts/layout') ?>
 <?= $this->section('content') ?>
 
 <h1 class="h3 mb-4 text-gray-800">Log Aktivitas Pengguna</h1>

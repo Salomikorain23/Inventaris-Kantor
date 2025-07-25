@@ -17,7 +17,7 @@ class Dashboard extends Controller
         $role = $session->get('role');
 
         // Set zona waktu dan data waktu sekarang
-        date_default_timezone_set('Asia/Makassar');
+        date_default_timezone_set('Asia/Jakarta');
         $data = [
             'totalBarang'     => 120,
             'barangMasuk'     => 45,
@@ -31,9 +31,9 @@ class Dashboard extends Controller
         ];
 
         if ($role === 'admin') {
-            return view('templates/dashboard_admin', $data);
+            return view('dashboard/dashboard_admin', $data);
         } elseif ($role === 'manajer') {
-            return view('templates/dashboard_manajer', $data);
+            return view('dashboard/dashboard_manajer', $data);
         } else {
             return redirect()->to('/login')->with('error', 'Role tidak dikenali.');
         }

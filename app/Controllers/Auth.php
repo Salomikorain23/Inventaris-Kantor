@@ -8,8 +8,8 @@ class Auth extends BaseController
 {
     public function login()
     {
-        // Reset session apapun dari sebelumnya
-        session()->remove(['username', 'role', 'logged_in']);
+        // Reset session sebelumnya
+        session()->remove(['username', 'role', 'foto', 'logged_in']);
 
         return view('auth/login');
     }
@@ -26,6 +26,7 @@ class Auth extends BaseController
             session()->set([
                 'username'  => $user['username'],
                 'role'      => $user['role'],
+                'foto'      => $user['foto'],
                 'logged_in' => true
             ]);
 
@@ -45,7 +46,7 @@ class Auth extends BaseController
 
     public function ubahPassword()
     {
-        return view('templates/ubah_password');
+        return view('auth/ubah_password');
     }
 
     public function prosesUbahPassword()

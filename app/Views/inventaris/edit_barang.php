@@ -1,4 +1,4 @@
-<?= $this->include('templates/header'); ?>
+<?= $this->include('layouts/header'); ?>
 
 <h2 class="h4 mb-4">Edit Data Barang</h2>
 
@@ -22,4 +22,4 @@
     <button type="submit" class="btn btn-success mt-2">Update</button>
 </form>
 
-<?= $this->include('templates/footer'); ?>
+<?= $this->include('layouts/footer'); ?>

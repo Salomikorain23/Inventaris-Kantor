@@ -20,7 +20,7 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <?= $this->include('templates/sidebar') ?>
+        <?= $this->include('layouts/sidebar') ?>
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -29,19 +29,18 @@
             <div id="content">
 
                 <!-- Topbar -->
-                <?= $this->include('templates/topbar') ?>
+                <?= $this->include('layouts/topbar') ?>
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <?= $this->renderSection('content') ?>
                 </div>
                 <!-- /.container-fluid -->
-
             </div>
             <!-- End of Main Content -->
 
             <!-- Footer -->
-            <?= $this->include('templates/footer') ?>
+            <?= $this->include('layouts/footer') ?>
 
         </div>
         <!-- End of Content Wrapper -->

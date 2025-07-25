@@ -1,4 +1,4 @@
-<?= $this->include('templates/header'); ?>
+<?= $this->include('layouts/header'); ?>
 
 <h2 class="h4 mb-4">Edit Data Peminjaman</h2>
 
@@ -30,4 +30,4 @@
     <a href="<?= base_url('peminjaman') ?>" class="btn btn-secondary mt-2">Batal</a>
 </form>
 
-<?= $this->include('templates/footer'); ?>
+<?= $this->include('layouts/footer'); ?>

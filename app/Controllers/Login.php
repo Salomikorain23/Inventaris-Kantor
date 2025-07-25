@@ -8,7 +8,7 @@ class Login extends BaseController
 {
     public function index()
     {
-        return view('templates/login');
+        return view('auth/login');
     }
 
     public function proses()

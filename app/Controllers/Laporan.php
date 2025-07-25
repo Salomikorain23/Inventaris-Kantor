@@ -33,7 +33,7 @@ class Laporan extends BaseController
             $laporan = $laporanModel->orderBy('id', 'DESC')->first();
         }
 
-        return view('templates/laporan_manajer', [
+        return view('laporan/laporan_manajer', [
             'laporan' => $laporan,
             'username' => $session->get('username')
         ]);

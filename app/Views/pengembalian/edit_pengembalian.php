@@ -1,4 +1,4 @@
-<?= $this->include('templates/header'); ?>
+<?= $this->include('layouts/header'); ?>
 
 <h2 class="h4 mb-4">Edit Data Pengembalian</h2>
 
@@ -27,4 +27,4 @@
     <a href="<?= base_url('pengembalian') ?>" class="btn btn-secondary mt-2">Kembali</a>
 </form>
 
-<?= $this->include('templates/footer'); ?>
+<?= $this->include('layouts/footer'); ?>

@@ -15,6 +15,6 @@ class Log extends BaseController
         $logModel = new LogModel();
         $data['logs'] = $logModel->orderBy('waktu', 'DESC')->findAll();
 
-        return view('templates/log', $data);
+        return view('log/index', $data);
     }
 }

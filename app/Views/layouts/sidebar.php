@@ -52,11 +52,13 @@
         </li>
 
         <!-- Menu Laporan -->
-        <li class="nav-item">
-            <a class="nav-link" href="<?= base_url('laporan') ?>">
-                <i class="fas fa-file-alt"></i>
-                <span>Laporan</span></a>
-        </li>
+        <?php if (session()->get('role') === 'manajer') : ?>
+            <li class="nav-item">
+                <a class="nav-link" href="<?= base_url('laporan') ?>">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Laporan</span></a>
+            </li>
+        <?php endif; ?>
 
     <?php elseif ($role === 'manajer'): ?>
         <!-- Menu Laporan untuk Manajer -->

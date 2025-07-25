@@ -1,11 +1,11 @@
-<?= $this->include('templates/header'); ?>
+<?= $this->include('layouts/header'); ?>
 
 <div class="text-center mb-4">
     <h1 class="h3 text-gray-800 font-weight-bold">Data Barang Inventaris</h1>
     <p class="text-muted">Halaman untuk menampilkan daftar barang yang tercatat di inventaris kantor.</p>
 </div>
 
-<a href="<?= base_url('dashboard') ?>" class="btn btn-secondary mb-3">← Kembali</a>
+<a href="<?= base_url('dashboard') ?>" class="btn btn-secondary mb-3">Kembali</a>
 
 <!-- Notifikasi flash message -->
 <?php if (session()->getFlashdata('success')): ?>
@@ -68,4 +68,4 @@
     </tbody>
 </table>
 
-<?= $this->include('templates/footer'); ?>
+<?= $this->include('layouts/footer'); ?>

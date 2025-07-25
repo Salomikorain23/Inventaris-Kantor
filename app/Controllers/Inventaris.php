@@ -33,7 +33,7 @@ class Inventaris extends BaseController
 
         $model = new BarangModel();
         $data['barang'] = $model->findAll();
-        return view('templates/barang', $data);
+        return view('inventaris/barang', $data);
     }
 
     public function peminjaman()
@@ -48,7 +48,7 @@ class Inventaris extends BaseController
 
         $model = new PeminjamanModel();
         $data['peminjaman'] = $model->findAll();
-        return view('templates/peminjaman', $data);
+        return view('peminjaman/peminjaman', $data);
     }
     public function tambahPeminjaman()
     {
@@ -90,7 +90,7 @@ class Inventaris extends BaseController
             return redirect()->to('/peminjaman')->with('error', 'Data tidak ditemukan.');
         }
 
-        return view('templates/edit_peminjaman', $data);
+        return view('peminjaman/edit_peminjaman', $data);
     }
 
     public function updatePeminjaman($id)
@@ -130,7 +130,7 @@ class Inventaris extends BaseController
 
         $model = new PengembalianModel();
         $data['pengembalian'] = $model->findAll();
-        return view('templates/pengembalian', $data);
+        return view('pengembalian/pengembalian', $data);
     }
 
     public function tambahPengembalian()
@@ -173,7 +173,7 @@ class Inventaris extends BaseController
             return redirect()->to('/pengembalian')->with('error', 'Data tidak ditemukan.');
         }
 
-        return view('templates/edit_pengembalian', $data);
+        return view('pengembalian/edit_pengembalian', $data);
     }
     public function updatePengembalian($id)
     {
@@ -233,7 +233,7 @@ class Inventaris extends BaseController
 
         $model = new BarangModel();
         $data['barang'] = $model->find($id);
-        return view('templates/edit_barang', $data);
+        return view('inventaris/edit_barang', $data);
     }
 
     public function updateBarang($id)

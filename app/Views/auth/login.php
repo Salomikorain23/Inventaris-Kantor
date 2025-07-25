@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Login - Inventaris Barang</title>
-    <link href="<?= base_url('vendor/fontawesome-free/css/all.min.css') ?>" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="<?= base_url('vendor/fontawesome-free/css/all.min.css') ?>">
     <link href="<?= base_url('css/sb-admin-2.min.css') ?>" rel="stylesheet">
 </head>
 
@@ -32,17 +32,40 @@
 
                             <div class="form-group mt-2">
                                 <label>Password</label>
-                                <input type="password" name="password" class="form-control" required>
+                                <div class="input-group">
+                                    <input type="password" name="password" id="passwordInput" class="form-control" required>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" onclick="togglePassword()" style="cursor: pointer;">
+                                            <i class="fas fa-eye" id="eyeIcon"></i>
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
 
                             <button type="submit" class="btn btn-primary mt-3 btn-block">Login</button>
                         </form>
+
                     </div>
                 </div>
             </div>
 
         </div>
     </div>
+
+    <!-- Toggle Password Script -->
+    <script>
+        function togglePassword() {
+            const input = document.getElementById('passwordInput');
+            const icon = document.getElementById('eyeIcon');
+            if (input.type === "password") {
+                input.type = "text";
+                icon.classList.replace('fa-eye', 'fa-eye-slash');
+            } else {
+                input.type = "password";
+                icon.classList.replace('fa-eye-slash', 'fa-eye');
+            }
+        }
+    </script>
 
     <script src="<?= base_url('vendor/jquery/jquery.min.js') ?>"></script>
     <script src="<?= base_url('vendor/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>

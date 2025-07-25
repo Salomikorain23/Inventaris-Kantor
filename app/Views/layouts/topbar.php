@@ -25,12 +25,16 @@
                     <span class="mr-2 d-none d-lg-inline text-gray-600 small">
                         <?= session()->get('username') ?? 'Admin' ?>
                     </span>
+                    <?php
+                    $foto = session()->get('foto') ?? 'user.png';
+                    ?>
                     <img class="img-profile rounded-circle"
-                        src="<?= base_url('img/user.png') ?>" alt="User Image" width="30" height="30">
+                        src="<?= base_url('img/' . $foto) ?>" alt="User Image" width="30" height="30">
+
                 </a>
                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                     aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="#">
+                    <a class="dropdown-item" href="<?= base_url('profil') ?>">
                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                         Profil
                     </a>
